@@ -1,5 +1,8 @@
 # PiClosedCaptions
 A system for sending a closed captions signal over the raspberry pi's composite video signal
+
+Heres a crappy trailer I made:
+[Pi Closed Caption Trailer](https://youtu.be/cdE49kMk9UQ)
 ## Hardware Overview
 This system was developed using an arduino with the [Video Experimenter Shield](https://nootropicdesign.com/video-experimenter/) by [nootropic designs](https://github.com/nootropicdesign) which has tons of great features and can enable you to do lots of interesting things with composite video signals on arduino.
 
