@@ -178,11 +178,11 @@ if __name__ == "__main__":
         if not check_EIA608_encoding(i.content):
             fixed = fix_encoding(bytes(i.content, 'utf-8')) + b"\n"
             if not check_EIA608_encoding(str(fixed, 'utf-8')):
-                message += f"Line: {i.index}\n"
+                message += f"Line: {i.index} contains unsupported characters\n"
                 message += str(fixed) + "\n"
                 
         if '{' in i.content:
-            message += f"Line: {i.index} may have additional text style formatting\n"
+            message += f"Line: {i.index} may have unsupported text style formatting\n"
             message += str(fixed) + "\n"
             
         if not check_caption_length(i.content):

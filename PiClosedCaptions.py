@@ -168,7 +168,7 @@ print("Begin")
 arduino.timeout = 2
 
 #open SRT file
-srtfile = open(args.subfile, "r")
+srtfile = open(args.subfile, "r", encoding="utf-8-sig")
 
 # create subtitle generator
 subtitle_generator = srt.parse(srtfile)
@@ -192,6 +192,9 @@ if(movie_start >= subtitles.end/timedelta(seconds=1)):
     for subtitles in subtitle_generator:
         if(movie_start <= subtitles.end/timedelta(seconds=1)):
             break
+
+#disable VLC player subtitles
+media.add_option("no-sub-autodetect-file")
 
 # setting media to the media player
 media_player.set_media(media)
