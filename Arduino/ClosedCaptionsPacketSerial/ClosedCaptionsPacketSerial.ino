@@ -38,7 +38,12 @@ void setup() {
   
   initOverlay();
   TV.disableScreenRender();
-  TV.setCCField(ODD);
+
+  //If you wire even/odd into pin 3 of the arduino you can choose
+  //the field (even or odd) that the closed caption signal is transmitted on
+  //In EIA-608 the CC1 signal is transmitted on only the odd fields
+  //uncomment the following line to use this feature
+  //TV.setCCField(ODD);
 
   //Enable builtin LED
   DDRB |= _BV(PB5);
