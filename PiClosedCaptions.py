@@ -83,7 +83,8 @@ if __name__ == "__main__":
     media_player.play()
 
     if args.delay > 0:
-        time.sleep(0.1) #wait a tiny bit before pausing, otherwise it won't pause; the time stamp will resync properly.
+        while media_player.is_playing() == 0: #loop until media player is actually playing, otherwise we'll pause before the media player starts!
+            time.sleep(0.1) 
         print("Delaying video playback by " + str(args.delay) + " seconds")
         media_player.pause() #the reason why we pause instead of just start playing is to allow the media player to show a frame, mainly to hide the raspberry pi console from showing.
         events.event_attach(vlc.EventType.MediaPlayerPlaying, StartFirstTimer, movie_start, args.signaturetime, caption_sender)
