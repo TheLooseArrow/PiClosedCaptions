@@ -32,6 +32,7 @@ def parse_args():
     parser.add_argument("-t","--starttime", default=0, type=float, help="time in seconds that the movie will start playing")
     parser.add_argument("-a","--aspectratio", default='', help="force to specified aspect ratio (expressed in X:Y format)")
     parser.add_argument("-g","--signaturetime", default=0, type=float, help="time in seconds to display the signature block (default: signature will never be displayed)")
+    parser.add_argument("-d","--delay", default=0, type=float, help="time in seconds to delay the playing of the video, will start as paused)")
     return parser.parse_args()
 
 if __name__ == "__main__": 
@@ -74,11 +75,21 @@ if __name__ == "__main__":
     events = media_player.event_manager()
     events.event_attach(vlc.EventType.MediaPlayerEndReached, MovieFinished, media_player)
     events.event_attach(vlc.EventType.MediaPlayerTimeChanged, SyncTimeStamp, media_player, caption_sender)
-    events.event_attach(vlc.EventType.MediaPlayerPlaying, StartFirstTimer, movie_start, args.signaturetime, caption_sender)
+    if args.delay == 0:
+        events.event_attach(vlc.EventType.MediaPlayerPlaying, StartFirstTimer, movie_start, args.signaturetime, caption_sender)
     #events.event_attach(vlc.EventType.MediaPlayerForward, FastForward, media_player, subtitle_generator)
 
     # start playing video
     media_player.play()
+
+    if args.delay > 0:
+        while media_player.is_playing() == 0: #loop until media player is actually playing, otherwise we'll pause before the media player starts!
+            time.sleep(0.1) 
+        print("Delaying video playback by " + str(args.delay) + " seconds")
+        media_player.pause() #the reason why we pause instead of just start playing is to allow the media player to show a frame, mainly to hide the raspberry pi console from showing.
+        events.event_attach(vlc.EventType.MediaPlayerPlaying, StartFirstTimer, movie_start, args.signaturetime, caption_sender)
+        time.sleep(args.delay)
+        media_player.play()
 
     input("Press Enter to stop...")
 

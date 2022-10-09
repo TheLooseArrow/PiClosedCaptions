@@ -25,7 +25,7 @@ These scripts were written using Python 3.7
 This script is where all the magic happens, it will play the movie and send the captions to the TV just like the glory days of analog home video.
 #### Usage Instructions
 ```bash
-python3 PiClosedCaptions.py [-h] [-s SUBFILE] [-m MOVIEFILE] [-c COMPORT] [-t STARTTIME]
+python3 PiClosedCaptions.py [-h] [-s SUBFILE] [-m MOVIEFILE] [-c COMPORT] [-t STARTTIME] [-d DELAY]
 ```
 Once the movie starts playing it can be stopped by simply pressing enter on the terminal that is running the script. The next subtitle to be displayed will be printed to the terminal as well.
 
